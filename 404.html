@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Страница не найдена</title>
+    <style>
+        :root {
+            --bg-primary: #0f0f1e;
+            --bg-secondary: #1a1a2e;
+            --text-primary: #eaeaea;
+            --text-secondary: #b4b4b4;
+            --accent: #ff6b6b;
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .container {
+            text-align: center;
+            z-index: 10;
+            padding: 40px;
+            max-width: 600px;
+        }
+
+        .error-code {
+            font-size: 150px;
+            font-weight: bold;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 20px;
+            animation: glitch 2s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+        }
+
+        .emoji {
+            font-size: 120px;
+            margin: 20px 0;
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.2em;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            font-size: 1.1em;
+            font-weight: bold;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 2px solid var(--accent);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        @keyframes rotate {
+            to { transform: rotate(360deg); }
+        }
+
+        .lost-particle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--accent);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: fall 5s linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes fall {
+            0% {
+                opacity: 1;
+                transform: translateY(0) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .error-code {
+                font-size: 100px;
+            }
+
+            .emoji {
+                font-size: 80px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            p {
+                font-size: 1em;
+            }
+
+            .compass {
+                width: 150px;
+                height: 150px;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+
+    <div class="container">
+        <div class="error-code">404</div>
+        <div class="emoji">🧭</div>
+        <h1>Кажется, вы заблудились...</h1>
+        <p>
+            Эта страница отправилась в своё собственное приключение и не вернулась. 
+            <br>Но не волнуйтесь — мы найдём для вас новый путь!
+        </p>
+
+        <div class="buttons">
+            <a href="/" class="btn btn-primary">🏠 На главную</a>
+            <a href="javascript:history.back()" class="btn btn-secondary">← Назад</a>
+        </div>
+    </div>
+
+    <script>
+        const starsContainer = document.getElementById('stars');
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            starsContainer.appendChild(star);
+        }
+
+        setInterval(() => {
+            const particle = document.createElement('div');
+            particle.className = 'lost-particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            document.body.appendChild(particle);
+
+            setTimeout(() => particle.remove(), 5000);
+        }, 300);
+
+        let code = [];
+        const secret = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
+        
+        document.addEventListener('keydown', (e) => {
+            code.push(e.key);
+            code = code.slice(-6);
+            
+            if (JSON.stringify(code) === JSON.stringify(secret)) {
+                alert('🎉 Секретный код активирован! Вы нашли пасхалку 404!');
+                document.body.style.animation = 'rainbow 2s linear infinite';
+            }
+        });
+
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes rainbow {
+                0% { filter: hue-rotate(0deg); }
+                100% { filter: hue-rotate(360deg); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
